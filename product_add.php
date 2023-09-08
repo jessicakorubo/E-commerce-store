@@ -87,7 +87,7 @@ $category = $stmt->get_result();
             </div>
             <div class="details">
                 <p>Product Details</p>
-                <p>View your product details here</p>
+                <p>View your product details here !</p>
             </div>
         </div>
         <section class="product-add">
