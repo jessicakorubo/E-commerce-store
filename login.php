@@ -1,15 +1,78 @@
+<?php 
+
+session_start();
+
+include ('server/connection.php');
+
+if (isset($_SESSION['logged_in'])){
+        header('location: account.php');
+        exit;
+    }
+
+if(isset($_POST['login_btn'])){
+
+        $email = $_POST['email'];
+        $password = md5($_POST['password']);
+
+        $stmt = $conn-> prepare("SELECT user_id, user_name, user_email, user_password FROM users WHERE user_email= ? AND 
+            user_password = ? LIMIT 1");
+
+        $stmt->bind_param('ss', $email, $password);
+
+        if ($stmt->execute()){
+          
+            $stmt->bind_result($user_id, $user_name, $user_email, $user_password);
+            $stmt ->store_result();
+
+            // if ($password != $user_password){
+            //   header('location: login.php?error=The password you have entered is incoorect');
+            // }
+
+            
+           
+
+            if ($stmt->num_rows() == 1){
+                  $stmt->fetch();
+
+                  $_SESSION['user_id'] = $user_id;
+                  $_SESSION['user_name'] = $user_name;
+                  $_SESSION['user_email'] = $user_email;
+                  $_SESSION['logged_in'] = true;
+
+
+                  header('location:account.php?login_success=Logged in successfully!');
+            } //rows 20
+            
+            else {
+              //error
+              header('location: login.php?error=Could not find your account, register your account.');
+            } //else close 31
+        } //execute 14
+        
+        else {
+            header('location:login.php?error=Something went wrong');
+        }
+      }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>E-shoppers</title>
     <link rel="stylesheet" href="styles.css" />
+
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v6.4.0/css/all.css" />
+
+
   </head>
+
+
   <body>
     <section id="header">
       <a href="#"><img src="images/lotus.png" class="logo" alt="" /></a>
@@ -22,10 +85,12 @@
           <li><a href="blog.html">Blog</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li id="lg-bag"><a  class="active" href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+          <li id="lg-bag"><a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
+          <li><a class="active" href="login.php"><i class="fa-solid fa-user"></i></a></li>
           <a href="#" id="close"><i class="fa-regular fa-circle-xmark"></i></a>
         </ul>
       </div>
+
       <div id="mobile">
         <a href="cart.html">
             <i class="fa-solid fa-cart-shopping"></i>
@@ -35,73 +100,28 @@
       </div>
     </section>
 
-    <section id="page-header" class="about-header"> 
-        <h2>#Checkout</h2>
-        <p>Get to know how we can help you!</p>
 
+      <section id="login-section">
+        <h4>LOGIN</h4>
+        <hr id="login">
+        <form id="login-form" action="login.php" method="POST">
+          <p style="color: red; text-align:center"><?php if(isset($_GET['error'])){echo $_GET['error'];}?> </p>
+            <div>
+                <input type="email" name="email" id="" placeholder="Email address">
+            </div>
+            <div>
+                <input type="password" name="password" id="" placeholder="Password">
+            </div>
+            <div>
+                <input type="submit" name="login_btn" id="login-btn" value="Login">
+            </div>
+            <div class="no-account">
+                <a href="register.php">Dont have an account? Register.</a>
+            </div>
+        </form>
     </section>
 
-    <section id="cart" class="section-p1">
-        <table width="100%">
-            <thead>
-                <tr>
-                    <td>Remove</td>
-                    <td>Image</td>
-                    <td>Product</td>
-                    <td>Price</td>
-                    <td>Quantity</td>
-                    <td>Subtotal</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="#"><i class="fa-regular fa-circle-xmark"></i></a></td>
-                    <td><img src="Images/products/f1.jpg" alt=""></td>
-                    <td>Cartoon Astronaut T-Shirts</td>
-                    <td>$118.19</td>
-                    <td><input type="number" value="1" name="" id=""></td>
-                    <td>$118.19</td>
-                </tr>
-                <tr>
-                    <td><a href="#"><i class="fa-regular fa-circle-xmark"></i></a></td>
-                    <td><img src="Images/products/f2.jpg" alt=""></td>
-                    <td>Cartoon Astronaut T-Shirts</td>
-                    <td>$118.19</td>
-                    <td><input type="number" value="1" name="" id=""></td>
-                    <td>$118.19</td>
-                </tr>
-                <tr>
-                    <td><a href="#"><i class="fa-regular fa-circle-xmark"></i></a></td>
-                    <td><img src="Images/products/f3.jpg" alt=""></td>
-                    <td>Cartoon Astronaut T-Shirts</td>
-                    <td>$118.19</td>
-                    <td><input type="number" value="1" name="" id=""></td>
-                    <td>$118.19</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-    <section class="cart-totals">
-        <div id="subtotal">
-            <h3>Cart Totals</h3>
-            <table>
-                <tr>
-                    <td>Cart Subtotal</td>
-                    <td>$355</td>
-                </tr>
-                <tr>
-                    <td>Shipping</td>
-                    <td>Free</td>
-                </tr>
-                <tr>
-                    <td><strong>Total</strong></td>
-                    <td><strong>$335</strong></td>
-                </tr>
-            </table>
-            <button class="normal">Proceed to checkout</button>
-        </div>
-    </section>
-
+   
     <footer class="section-p1">
         <div class="col">
             <img class="logo" src="Images/lotus.png" alt="">
@@ -156,6 +176,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
+
   </body>
 </html>
