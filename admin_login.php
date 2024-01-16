@@ -9,37 +9,40 @@ if(isset($_SESSION['logged'])) {
 }
 
 if (isset($_POST['admin_login'])) {
-    $admin_username = $_POST['usern-ame'];
-    $admin_password = md5($_POST['password']);
+    $admin_username = $_POST['username'];
+    $admin_password = $_POST['password'];
 
-    $stmt = $conn-> prepare("SELECT admin_username, admin_password FROM admin WHERE admin_username= ? and admin_password =?");
-    $stmt-> bind_param('ss', $admin_username, $admin_password);
- 
+    $stmt = $conn->prepare("SELECT admin_username, admin_password FROM admin WHERE admin_username = ?");
+    $stmt->bind_param('s', $admin_username);
+
     if ($stmt->execute()) {
-
-        $stmt-> bind_result($admin_username, $admin_password);
         $stmt->store_result();
 
-        if ($stmt->num_rows() ==1) {
+        if ($stmt->num_rows == 1) {
+            // Username exists, fetch the hashed password from the database
+            $stmt->bind_result($db_username, $db_password);
             $stmt->fetch();
-            
-            $_SESSION['admin_username'] = $admin_username;
-            $_SESSION['admin_password'] = $admin_password;
-            $_SESSION['logged'] = true;
 
-            header('location: admin.php?Logged in successfully');
+            // Verify the entered password against the hashed password
+            if (password_verify($admin_password, $db_password)) {
+                session_start();
+                $_SESSION['admin_username'] = $db_username; // Corrected variable name
+                $_SESSION['logged'] = true;
+                header('location: admin.php?Logged in successfully');
+            } else {
+                header('location: admin_login.php?error=Wrong username or password');
+            }
+        } else {
+            header('location: admin_login.php?error=Wrong username or password');
         }
-         else {
-        header('location:admin_login.php?error=No rows fetched');
-        }
+    } else {
+        header('location: admin_login.php?error=Something went wrong');
     }
-     else {
-        header('location:admin_login.php?error=Something went wrong');
-    }
-   
-   
-    
+
+    $stmt->close();
 }
+
+
 ?>
 
 
