@@ -80,26 +80,27 @@
         <p>Summer Collection New Modern Design</p>
         <div class="pro-container">
         <?php while($row = $featured_products->fetch_assoc()){ ?>
-            <div class="pro">
-                <img src="Images/products/<?php echo $row['product_image']; ?>" alt="">
-                <div class="des">
-                    <span>addidas</span>
-                    <h5><?php echo $row['product_name']; ?></h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+            <a href="<?php echo "sproduct.php?product_id=".$row['product_id'];?>">
+                <div class="pro">
+                    <img src="Images/products/<?php echo $row['product_image']; ?>" alt="">
+                    <div class="des">
+                        <span>addidas</span>
+                        <h5><?php echo $row['product_name']; ?></h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <form>
+                        <h4 class="p-price">$ <?php echo $row['product_price'];?></h4>
+                        <a href="<?php echo "sproduct.php?product_id=".$row['product_id'];?>"><i class="cart fa-solid fa-basket-shopping"></i></a>
                     </div>
-                    <form>
-                    <h4 class="p-price">$ <?php echo $row['product_price'];?></h4>
-                    <a href="<?php echo "sproduct.php?product_id=".$row['product_id'];?>"><i class="cart fa-solid fa-basket-shopping"></i></a>
-
                 </div>
+            <?php } ?>
             </div>
-        <?php } ?>
-        </div>
+        </a>
     </section>
 
     <section id="banner" class="section-m1">

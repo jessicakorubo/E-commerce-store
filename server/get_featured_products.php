@@ -14,5 +14,9 @@ $shop = $conn-> prepare("SELECT * FROM products");
 $shop->execute();
 $shop_products = $shop->get_result();
 
+$s_featured= $conn->prepare("SELECT * FROM products LIMIT 10, 6 ");
+$s_featured->execute();
+$featured= $s_featured->get_result();
+
 ?>
 

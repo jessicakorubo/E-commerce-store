@@ -63,7 +63,7 @@ if (isset($_GET['product_id'])){
 
     <?php while($row = $product->fetch_assoc()){ ?>
 
-        <section id="prodetails" class="section-p1">
+    <section id="prodetails" class="section-p1">
 
             <div class="single-pro-image">
                 <img src="Images/products/<?php echo $row['product_image']; ?>" width="100%" id="MainImg" alt="">
@@ -91,8 +91,7 @@ if (isset($_GET['product_id'])){
 
                 <h6> Home / <?php echo $row['product_category']; ?> </h6>
                 <h4> <?php echo $row['product_name']; ?> </h4>
-                <h1> <?php echo $row['product_price']; ?></h1>
-                <p> <?php echo $row['product_id']; ?></p>
+                <p> &#8358; <?php echo $row['product_price']; ?></p>
 
                 <select>
                     <option disabled>Select Size</option>
@@ -132,26 +131,27 @@ if (isset($_GET['product_id'])){
         <div class="pro-container">
             
              <?php include('server/get_featured_products.php'); ?>
-        <?php while($row = $shop_products->fetch_assoc()){ ?>
+            <?php while($row = $featured->fetch_assoc()){ ?>
 
-            <div class="pro" href="<?php echo "sproduct.php?product_id=".$row['product_id'];?>">
-                <img src="Images/products/<?php echo $row['product_image'];?>" alt="">
-                <div class="des">
-                    <span>addidas</span>
-                    <h5><?php echo $row['product_name']; ?></h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-
+            <a href="<?php echo "sproduct.php?product_id=".$row['product_id']?>">
+                <div class="pro" href="<?php echo "sproduct.php?product_id=".$row['product_id'];?>">
+                    <img src="Images/products/<?php echo $row['product_image'];?>" alt="">
+                    <div class="des">
+                        <span>addidas</span>
+                        <h5><?php echo $row['product_name']; ?></h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4> &#8358 <?php echo $row['product_price'];?></h4>
+                        <a href="<?php echo "sproduct.php?product_id=".$row['product_id'];?>"><svg class="cart" fill="#EBC5ED" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg></i></a>
                     </div>
-                    <h4> &#8358 <?php echo $row['product_price'];?></h4>
-                    <a href="<?php echo "sproduct.php?product_id=".$row['product_id'];?>"><svg class="cart" fill="#EBC5ED" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg></i></a>
                 </div>
-            </div>
-            <?php } ?>
+                <?php } ?>
+            </a>
         </div>
     </section>
 

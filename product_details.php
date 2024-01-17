@@ -38,9 +38,10 @@ if (isset($_GET['product_id'])) {
         crossorigin="anonymous"
     />
 </head>
+
 <body>
     
-<section class="admin_navbar">
+    <section class="admin_navbar">
             <div class="admin_logo">
                 <p>CARRA</p>
             </div>
@@ -65,7 +66,7 @@ if (isset($_GET['product_id'])) {
                                 </a>
                                 <div id="collapseTwo" class="accordion-collapse collapse " data-bs-parent="#products-options">
                                     <div class="accordion-body">
-                                        <a href="#">Add category </a>    
+                                        <a href="category.php">Add category </a>    
                                     </div>      
                                     <div class="accordion-body">
                                         <a href="product_add.php">Add a Product </a>                                                                             
@@ -146,4 +147,5 @@ if (isset($_GET['product_id'])) {
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
 </body>
+
 </html>

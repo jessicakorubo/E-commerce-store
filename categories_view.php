@@ -6,6 +6,7 @@ $category = $conn-> prepare("SELECT * FROM category");
 $category->execute();
 $cats = $category->get_result();
 
+
 ?>
 
 

@@ -18,7 +18,7 @@ if(isset($_GET['adminlogout'])) {
         exit;
     }
 }
-if (isset(($_POST['change_admin_password']))) {
+if (isset($_POST['change_admin_password'])) {
     $admin_password = $_POST['admin_password'];
     $confirmPassword = $_POST['confirmPassword'];
     $admin_username = $_SESSION['admin_username'];
