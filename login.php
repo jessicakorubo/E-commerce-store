@@ -80,11 +80,11 @@ if(isset($_POST['login_btn'])){
       <div class="">
         <ul id="navbar">
 
-          <li><a  href="index.html">Home</a></li>
-          <li><a href="shop.html">Shop</a></li>
+          <li><a  href="index.php">Home</a></li>
+          <li><a href="shop.php">Shop</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.php">Contact</a></li>
           <li id="lg-bag"><a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
           <li><a class="active" href="login.php"><i class="fa-solid fa-user"></i></a></li>
           <a href="#" id="close"><i class="fa-regular fa-circle-xmark"></i></a>
